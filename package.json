@@ -1,0 +1,28 @@
+{
+  "name": "donk",
+  "version": "0.0.1",
+  "description": "voetbal poule component",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "init": "npm run clean && mkdir ./build && cp ./src/html/* ./build/ ",
+    "bundle": "npm run init && node ./esbuild.config.js",
+    "build": "npm run bundle -- production",
+    "start": "npm run bundle -- development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSchermers/donk.git"
+  },
+  "keywords": [
+  "donk",
+  "teamresultaten"
+  ],
+  "author": "Joost Schermers",
+
+  "homepage": "https://github.com/craigbuckler/esbuild-demo#readme",
+  "devDependencies": {
+    "esbuild": "0.19.5"
+  }
+}

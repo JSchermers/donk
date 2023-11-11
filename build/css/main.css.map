@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/css/main.css"],
+  "sourcesContent": ["body {\r\n    background:#efefef;\r\n}"],
+  "mappings": ";AAAA;AACI,cAAW;AACf;",
+  "names": []
+}

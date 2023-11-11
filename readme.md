@@ -1,0 +1,1 @@
+## General component for showing results from futball

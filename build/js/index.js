@@ -623,11 +623,10 @@
       super(...arguments);
       this.URL = "https://data.sportlink.com";
     }
-    async getData() {
-    }
+    // private async getData(): Promise<void> {
+    // }
     connectedCallback() {
       super.connectedCallback();
-      this.getData();
       this.dispatchEvent(new CustomEvent("connected"));
     }
     render() {

@@ -1,8 +1,6 @@
 import { argv } from 'node:process';
 import * as esbuild from 'esbuild';
 
-console.log(argv[2])
-
 const
   productionMode = ('development' !== (argv[2] || process.env.NODE_ENV)),
   target = 'chrome118,firefox100,safari15'.split(',');

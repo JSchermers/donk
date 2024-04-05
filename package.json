@@ -1,6 +1,6 @@
 {
-  "name": "donk",
-  "version": "0.0.1",
+  "name": "sportlink-wedstrijd",
+  "version": "1.0.0",
   "description": "voetbal poule component",
   "type": "module",
   "main": "index.js",

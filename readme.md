@@ -1,8 +1,8 @@
 ## General component for showing results from futball
 
-It is a webcomponent for displaying the next and the previous match from the netherlands
+It is a webcomponent for displaying the next match from a amateurteam in the Netherlands. It needs a clientId for sprtlink and a pouleCode.
 
-`<sportlink-wedstrijd clientID=""></sprotlink-wedstrijd>`
+`<sportlink-wedstrijd clientId="" pouleCode=""></sprotlink-wedstrijd>`
 
 ### Properties
 

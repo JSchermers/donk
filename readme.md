@@ -1,6 +1,6 @@
 ## General component for showing results from futball
 
-It is a webcomponent for displaying the next match from a amateurteam in the Netherlands. It needs a clientId for sportlink and a pouleCode. This code can be as meta element or as property
+It is a webcomponent for displaying the next match from a amateurteam in the Netherlands. It needs a clientId for sportlink and a pouleCode. This code can be as meta element or as property.
 
 ### meta
 `<meta name="pouleCode" content="[yourcontent]" />`

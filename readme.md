@@ -9,6 +9,7 @@ It is a webcomponent for displaying the next match from a amateurteam in the Net
 ### property
 `<sportlink-wedstrijd clientId="[yourcontent]" pouleCode="[yourcontent]"></sprotlink-wedstrijd>`
 
+
 ### Properties
 
 | Property    | Value |

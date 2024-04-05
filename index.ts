@@ -92,12 +92,15 @@ class SportlinkWedstrijd extends LitElement {
 
   private async getMeta() {
     const metaEls = document.getElementsByTagName("meta");
-    this.clientId = metaEls.namedItem("clientId")?.content
-      ? metaEls.namedItem("clientId")?.content
-      : this.clientId;
-    this.pouleCode = metaEls.namedItem("pouleCode")?.content
-      ? metaEls.namedItem("pouleCode")?.content
-      : this.pouleCode;
+    this.clientId =
+      this.clientId !== undefined
+        ? this.clientId
+        : metaEls.namedItem("clientId")?.content;
+    this.pouleCode =
+      this.pouleCode !== undefined
+        ? this.pouleCode
+        : metaEls.namedItem("pouleCode")?.content;
+
     if (!this.clientId || !this.pouleCode) {
       this.error = true;
     } else {

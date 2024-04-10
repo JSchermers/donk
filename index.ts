@@ -55,7 +55,7 @@ class SportlinkWedstrijd extends LitElement {
   clientId?: string;
 
   @property()
-  pouleCode?: string;
+  teamCode?: string;
 
   @property()
   loading: boolean = true;
@@ -78,9 +78,9 @@ class SportlinkWedstrijd extends LitElement {
   }
 
   private async getData(): Promise<any[]> {
-    const url: URL = new URL(`${this.URL}/poule-programma`);
+    const url: URL = new URL(`${this.URL}/programma`);
     url.searchParams.append("client_id", this.clientId as unknown as string);
-    url.searchParams.append("poulecode", this.pouleCode as unknown as string);
+    url.searchParams.append("teamcode", this.teamCode as unknown as string);
     return await fetch(url).then((response) => {
       if (response.ok) {
         return response.json();
@@ -96,12 +96,12 @@ class SportlinkWedstrijd extends LitElement {
       this.clientId !== undefined
         ? this.clientId
         : metaEls.namedItem("clientId")?.content;
-    this.pouleCode =
-      this.pouleCode !== undefined
-        ? this.pouleCode
-        : metaEls.namedItem("pouleCode")?.content;
+    this.teamCode =
+      this.teamCode !== undefined
+        ? this.teamCode
+        : metaEls.namedItem("teamCode")?.content;
 
-    if (!this.clientId || !this.pouleCode) {
+    if (!this.clientId || !this.teamCode) {
       this.error = true;
     } else {
       this.data = await this.getData();

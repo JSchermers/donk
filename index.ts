@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 @customElement("sportlink-wedstrijd")
@@ -34,13 +34,25 @@ class SportlinkWedstrijd extends LitElement {
       max-width: 50px;
     }
 
+    .wedstrijd {
+      padding-inline-start: var(--sportlink-wedstrijd-padding-inline-start, 0);
+      padding-inline-end: var(--sportlink-wedstrijd-inline-end, 0);
+      padding-block-start: var(--sportlink-wedstrijd-block-start, 0);
+      padding-block-end: var(--sportlink-wedstrijd-block-end, 0);
+    }
+
+    .wedstrijd:not(:last-of-type) {
+      border-bottom: 1px solid
+        var(--sportlink-wedstrijd-wedstrijd-border-bottom, lightgrey);
+    }
+
     .wedstrijd-thuis,
     .wedstrijd-uit {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: var(--sportlink-wedstrijd-team-color);
-      font-size: var(--sportlink-wedstrijd-team-size);
+      color: var(--sportlink-wedstrijd-wedstrijd-team-color, inherit);
+      font-size: var(--sportlink-wedstrijd-wedstrijd-team-font-size, inherit);
     }
 
     .wedstrijd-meta {
@@ -48,6 +60,30 @@ class SportlinkWedstrijd extends LitElement {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+    }
+
+    .wedstrijd-datum {
+      padding-inline: var(--sportlink-wedstrijd-datum-padding-inline, 0);
+      padding-block: var(--sportlink-wedstrijd-datum-padding-block, 0);
+      font-size: var(--sportlink-wedstrijd-datum-team-font-size, inherit);
+      font-weight: var(--sportlink-wedstrijd-datum-font-family-weight, inherit);
+    }
+
+    .wedstrijd-aanvangstijd {
+      padding-inline: var(--sportlink-wedstrijd-aanvangstijd-padding-inline, 0);
+      padding-block: var(--sportlink-wedstrijd-aanvangstijd-padding-block, 0);
+      font-size: var(
+        --sportlink-wedstrijd-aanvangstijd-team-font-size,
+        inherit
+      );
+      font-weight: var(
+        --sportlink-wedstrijd-aanvangstijd-font-family-weight,
+        inherit
+      );
+    }
+
+    .wedstrijd-klassepoule {
+      color: var(--sportlink-wedstrijd-poule-color, inherit);
     }
   `;
 
@@ -115,59 +151,50 @@ class SportlinkWedstrijd extends LitElement {
     this.dispatchEvent(new CustomEvent("connected"));
   }
 
-  private renderTeam(team: string) {
-    return html` <div>${team}</div> `;
-  }
-
-  private renderDonk(team: string) {
+  private renderTeamCard(team: string, logo: string) {
     return html`
-    <div>
-    <img src=${this.URL}/clublogo?client_id=${this.clientId} alt="thuis logo donk" />
-    ${this.renderTeam(team)}
-    </div>
+      <div>
+        <img src=${logo} alt="club logo ${team}" />
+        <div>${team}</div>
+      </div>
     `;
   }
 
-  private renderThuisClub(): any {
-    return this.data[0]?.thuisteam.toLocaleLowerCase().includes("donk") === true
-      ? this.renderDonk(this.data[0]?.thuisteam)
-      : this.renderTeam(this.data[0]?.thuisteam);
-  }
-
-  private renderUitClub(): any {
-    return this.data[0]?.uitteam.toLocaleLowerCase().includes("donk") === true
-      ? this.renderDonk(this.data[0]?.uitteam)
-      : this.renderTeam(this.data[0]?.uitteam);
-  }
-
-  private renderMeta(): any {
+  private renderMeta(wedstrijd: any): TemplateResult {
     return html`
-      <span>To do klasse</span>
-      <time class="datum" datetime="${this.data[0]?.datum}">${this.returnDutchDate(this.data[0]?.datum)}</time>
-      <time class"aanvrangstijd" datetime="${this.data[0]?.aanvangstijd}">${this.data[0]?.aanvangstijd}</time>
+      <span class="wedstrijd-klassepoule">${wedstrijd.klassepoule}</span>
+      <time class="wedstrijd-datum" datetime="${wedstrijd.wedstrijddatum}">${this.returnDutchDate(wedstrijd.wedstrijddatum)}</time>
+      <time class"wedstrijd-aanvrangstijd" datetime="${wedstrijd.aanvangstijd}">${wedstrijd.aanvangstijd}</time>
     `;
   }
 
   private renderWedstrijd(): any {
     return this.data?.length > 0
-      ? html`
-          <div class="wedstrijd-main">
-            <h2>Volgende wedstrijd</h2>
-            <div class="wedstrijd">
-              <div class="wedstrijd-thuis">${this.renderThuisClub()}</div>
-              <div class="wedstrijd-meta">${this.renderMeta()}</div>
-              <div class="wedstrijd-uit">${this.renderUitClub()}</div>
+      ? this.data.map((wedstrijd) => {
+          return html` <div class="wedstrijd">
+            <div class="wedstrijd-thuis">
+              ${this.renderTeamCard(
+                wedstrijd.thuisteam,
+                wedstrijd.thuisteamlogo,
+              )}
             </div>
-          </div>
-        `
+            <div class="wedstrijd-meta">${this.renderMeta(wedstrijd)}</div>
+            <div class="wedstrijd-uit">
+              ${this.renderTeamCard(wedstrijd.uitteam, wedstrijd.uitteamlogo)}
+            </div>
+          </div>`;
+        })
       : html` <p>Er is geen eerstvolgende wedstrijd bekend</p> `;
   }
 
-  render(): any {
+  render(): TemplateResult {
     return this.error
       ? html`<div>Er is helaas iets misgegaan</div>`
       : this.loading
         ? html` <div>loading</div>`
-        : this.renderWedstrijd();
+        : html` <div class="wedstrijd-main">
+            <h2>Volgende wedstrijd</h2>
+            ${this.renderWedstrijd()}
+          </div>`;
   }
 }

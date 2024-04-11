@@ -69,7 +69,7 @@ class SportlinkWedstrijd extends LitElement {
       font-weight: var(--sportlink-wedstrijd-datum-font-family-weight, inherit);
     }
 
-    .wedstrijd-aanvangstijd {
+    .wedstrijd-aanvangstijd-or-uitslag {
       padding-inline: var(--sportlink-wedstrijd-aanvangstijd-padding-inline, 0);
       padding-block: var(--sportlink-wedstrijd-aanvangstijd-padding-block, 0);
       font-size: var(
@@ -119,8 +119,14 @@ class SportlinkWedstrijd extends LitElement {
     return new Intl.DateTimeFormat("nl-NL", formatOptions).format(newDate);
   }
 
+  private getType() {
+    return this.type !== undefined && this.type === "uitslag"
+      ? `uitslagen`
+      : `programma`;
+  }
+
   private async getData(): Promise<any[]> {
-    const url: URL = new URL(`${this.URL}/programma`);
+    const url: URL = new URL(`${this.URL}/${this.getType()}`);
     url.searchParams.append("client_id", this.clientId as unknown as string);
     url.searchParams.append("teamcode", this.teamCode as unknown as string);
     return await fetch(url).then((response) => {
@@ -165,7 +171,7 @@ class SportlinkWedstrijd extends LitElement {
   private renderTeamCard(team: string, logo: string) {
     return html`
       <div>
-        <img src=${logo} alt="club logo ${team}" />
+        ${logo ? html`<img src=${logo} alt="club logo ${team}" />` : null}
         <div>${team}</div>
       </div>
     `;
@@ -173,9 +179,19 @@ class SportlinkWedstrijd extends LitElement {
 
   private renderMeta(wedstrijd: any): TemplateResult {
     return html`
-      <span class="wedstrijd-klassepoule">${wedstrijd.klassepoule}</span>
-      <time class="wedstrijd-datum" datetime="${wedstrijd.wedstrijddatum}">${this.returnDutchDate(wedstrijd.wedstrijddatum)}</time>
-      <time class"wedstrijd-aanvrangstijd" datetime="${wedstrijd.aanvangstijd}">${wedstrijd.aanvangstijd}</time>
+      ${wedstrijd.klassepoule
+        ? html`<span class="wedstrijd-klassepoule"
+            >${wedstrijd.klassepoule}</span
+          >`
+        : null}
+      <time class="wedstrijd-datum" datetime="${wedstrijd.wedstrijddatum}"
+        >${this.returnDutchDate(wedstrijd.wedstrijddatum)}</time
+      >
+      ${wedstrijd.uitslag
+        ? html`<span class="wedstrijd-aanvrangstijd-or-uitslag"
+            >${wedstrijd.uitslag}</span
+          >`
+        : html`<time class"wedstrijd-aanvrangstijd-or-uitslag" datetime="${wedstrijd.aanvangstijd}">${wedstrijd.aanvangstijd}</time>`}
     `;
   }
 

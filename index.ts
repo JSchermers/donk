@@ -94,6 +94,12 @@ class SportlinkWedstrijd extends LitElement {
   teamCode?: string;
 
   @property()
+  type?: string = "uitslag" || "programma";
+
+  @property()
+  single?: any;
+
+  @property()
   loading: boolean = true;
 
   @property()
@@ -141,6 +147,11 @@ class SportlinkWedstrijd extends LitElement {
       this.error = true;
     } else {
       this.data = await this.getData();
+      this.data = this.single
+        ? this.data.slice(0, 1)
+        : this.data.length > 3
+          ? this.data.slice(0, 3)
+          : this.data;
       this.loading = false;
     }
   }
@@ -168,6 +179,12 @@ class SportlinkWedstrijd extends LitElement {
     `;
   }
 
+  private wedstrijdTitel() {
+    return this.type === "programma" || this.type === undefined
+      ? html` Volgende wedstrijd `
+      : html` Vorige wedstrijd `;
+  }
+
   private renderWedstrijd(): any {
     return this.data?.length > 0
       ? this.data.map((wedstrijd) => {
@@ -193,7 +210,7 @@ class SportlinkWedstrijd extends LitElement {
       : this.loading
         ? html` <div>loading</div>`
         : html` <div class="wedstrijd-main">
-            <h2>Volgende wedstrijd</h2>
+            <h2>${this.wedstrijdTitel()}</h2>
             ${this.renderWedstrijd()}
           </div>`;
   }

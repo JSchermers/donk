@@ -16,6 +16,8 @@ It is a webcomponent for displaying the next match from a amateurteam in the Net
 | -------- | ------- |
 | clientId  | [your_id] |
 | teamCode  | [your_id] |
+| single  | [some_value] |
+| type  | programma / uitslag |
 
 
 ### css vars

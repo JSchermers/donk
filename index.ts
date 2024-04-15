@@ -94,7 +94,7 @@ class SportlinkWedstrijd extends LitElement {
   teamCode?: string;
 
   @property()
-  type?: string = "uitslag" || "programma";
+  type?: string;
 
   @property()
   single?: any;
@@ -168,10 +168,12 @@ class SportlinkWedstrijd extends LitElement {
     this.dispatchEvent(new CustomEvent("connected"));
   }
 
-  private renderTeamCard(team: string, logo: string) {
+  private renderTeamCard(team: string, code: string) {
     return html`
       <div>
-        ${logo ? html`<img src=${logo} alt="club logo ${team}" />` : null}
+        ${code
+          ? html`<img src=https://logoapi.voetbal.nl/logo.php?clubcode=${code} alt="club logo ${team}" />`
+          : null}
         <div>${team}</div>
       </div>
     `;
@@ -208,12 +210,15 @@ class SportlinkWedstrijd extends LitElement {
             <div class="wedstrijd-thuis">
               ${this.renderTeamCard(
                 wedstrijd.thuisteam,
-                wedstrijd.thuisteamlogo,
+                wedstrijd.thuisteamclubrelatiecode,
               )}
             </div>
             <div class="wedstrijd-meta">${this.renderMeta(wedstrijd)}</div>
             <div class="wedstrijd-uit">
-              ${this.renderTeamCard(wedstrijd.uitteam, wedstrijd.uitteamlogo)}
+              ${this.renderTeamCard(
+                wedstrijd.uitteam,
+                wedstrijd.uitteamclubrelatiecode,
+              )}
             </div>
           </div>`;
         })

@@ -1,6 +1,6 @@
-## General component for showing results from futball
+## General component for showing upcoming matches or results from futball
 
-It is a webcomponent for displaying the next match from a amateurteam in the Netherlands. It needs a clientId for sportlink and a teamCode. This code can be as meta element or as property.
+It is a webcomponent for displaying the next upcoming match(es) or previous match (result) from a amateurteam in the Netherlands. It needs a clientId for sportlink and a teamCode. This code can be as meta element or as property.
 
 ### meta
 `<meta name="teamCode" content="[yourcontent]" />`

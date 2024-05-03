@@ -53,6 +53,7 @@ class SportlinkWedstrijd extends LitElement {
       justify-content: center;
       color: var(--sportlink-wedstrijd-wedstrijd-team-color, inherit);
       font-size: var(--sportlink-wedstrijd-wedstrijd-team-font-size, inherit);
+      width: var(--sportlink-wedstrijd-wedstrijd-team-logo-width, 6rem);
     }
 
     .wedstrijd-meta {

@@ -50,5 +50,6 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 | --sportlink-wedstrijd-aanvangstijd-padding-block | 0 |
 | --sportlink-wedstrijd-aanvangstijd-team-font-size | inherit |
 | --sportlink-wedstrijd-aanvangstijd-font-family-weight | inherit |
+| --sportlink-wedstrijd-wedstrijd-team-logo-width | 6rem |
 
 ### This component is in beta mode and not production ready

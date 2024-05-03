@@ -223,12 +223,14 @@ class SportlinkWedstrijd extends LitElement {
             </div>
           </div>`;
         })
-      : html` <p><slot name="nogames"></slot></p> `;
+      : html`
+          <p><slot name="nogames">Er zijn geen webstrijden bekend.</slot></p>
+        `;
   }
 
   render(): TemplateResult {
     return this.error
-      ? html`<div><slot name="error"><slot></div>`
+      ? html`<div><slot name="error">Helaas, er is iets misgegaan.<slot></div>`
       : this.loading
         ? html` <div>loading</div>`
         : html` <div class="wedstrijd-main">

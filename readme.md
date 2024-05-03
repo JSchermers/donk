@@ -57,3 +57,5 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 | SLOTName | Position |
 | slot="next_game" | Title if component shows next games |
 | slot="previous_game" | Title if component shows previous games |
+| slot="nogames" | When there are no games |
+| slot="error" | When something goes wrong |

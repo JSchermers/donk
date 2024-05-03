@@ -52,4 +52,8 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 | --sportlink-wedstrijd-aanvangstijd-font-family-weight | inherit |
 | --sportlink-wedstrijd-wedstrijd-team-logo-width | 6rem |
 
-### This component is in beta mode and not production ready
+### SLOTTED
+
+| SLOTName | Position |
+| slot="next_game" | Title if component shows next games |
+| slot="previous_game" | Title if component shows previous games |

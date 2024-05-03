@@ -127,7 +127,7 @@ class SportlinkWedstrijd extends LitElement {
   }
 
   private async getData(): Promise<any[]> {
-    const url: URL = new URL(`${this.URL}/${this.getType()}`);
+    const url: URL = new URL(`${this.URL}${this.getType()}`);
     url.searchParams.append("client_id", this.clientId as unknown as string);
     url.searchParams.append("teamcode", this.teamCode as unknown as string);
     return await fetch(url).then((response) => {
@@ -200,8 +200,8 @@ class SportlinkWedstrijd extends LitElement {
 
   private wedstrijdTitel() {
     return this.type === "programma" || this.type === undefined
-      ? html` Volgende wedstrijd `
-      : html` Vorige wedstrijd `;
+      ? html`<slot name="next_game"></slot>`
+      : html`<slot name="previous_game"></slot>`;
   }
 
   private renderWedstrijd(): any {
@@ -223,12 +223,12 @@ class SportlinkWedstrijd extends LitElement {
             </div>
           </div>`;
         })
-      : html` <p>Er is geen eerstvolgende wedstrijd bekend</p> `;
+      : html` <p><slot name="nogames"></slot></p> `;
   }
 
   render(): TemplateResult {
     return this.error
-      ? html`<div>Er is helaas iets misgegaan</div>`
+      ? html`<div><slot name="error"><slot></div>`
       : this.loading
         ? html` <div>loading</div>`
         : html` <div class="wedstrijd-main">

@@ -53,7 +53,12 @@ class SportlinkWedstrijd extends LitElement {
       justify-content: center;
       color: var(--sportlink-wedstrijd-wedstrijd-team-color, inherit);
       font-size: var(--sportlink-wedstrijd-wedstrijd-team-font-size, inherit);
-      width: var(--sportlink-wedstrijd-wedstrijd-team-logo-width, 6rem);
+      width: var(
+        --sportlink-wedstrijd-wedstrijd-team-logo-width,
+        var(--sportlink-wedstrijd-wedstrijd-team-width, 10ch)
+      );
+      max-width: var(--sportlink-wedstrijd-wedstrijd-team-width, 10ch);
+      font-size: var(--sportlink-wedstrijd-wedstrijd-team-font-size, 0.8rem);
     }
 
     .wedstrijd-meta {
@@ -61,6 +66,7 @@ class SportlinkWedstrijd extends LitElement {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      font-size: var(--sportlink-wedstrijd-wedstrijd-team-font-size, 0.8rem);
     }
 
     .wedstrijd-datum {
@@ -224,7 +230,7 @@ class SportlinkWedstrijd extends LitElement {
           </div>`;
         })
       : html`
-          <p><slot name="nogames">Er zijn geen webstrijden bekend.</slot></p>
+          <p><slot name="nogames">Er zijn geen wedstrijden bekend.</slot></p>
         `;
   }
 

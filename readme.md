@@ -51,6 +51,8 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 | --sportlink-wedstrijd-aanvangstijd-team-font-size | inherit |
 | --sportlink-wedstrijd-aanvangstijd-font-family-weight | inherit |
 | --sportlink-wedstrijd-wedstrijd-team-logo-width | 6rem |
+| --sportlink-wedstrijd-wedstrijd-team-font-size | .8rem |
+| --sportlink-wedstrijd-wedstrijd-team-width | 10ch |
 
 ### SLOTTED
 

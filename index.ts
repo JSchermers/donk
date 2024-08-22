@@ -104,6 +104,9 @@ class SportlinkWedstrijd extends LitElement {
   type?: string;
 
   @property()
+  wedstrijdType?: string = "BOND";
+
+  @property()
   single?: any;
 
   @property()
@@ -136,6 +139,10 @@ class SportlinkWedstrijd extends LitElement {
     const url: URL = new URL(`${this.URL}${this.getType()}`);
     url.searchParams.append("client_id", this.clientId as unknown as string);
     url.searchParams.append("teamcode", this.teamCode as unknown as string);
+    url.searchParams.append(
+      "wedstrijdtype",
+      this.wedstrijdType as unknown as string,
+    );
     return await fetch(url).then((response) => {
       if (response.ok) {
         return response.json();

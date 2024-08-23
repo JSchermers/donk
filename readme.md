@@ -7,7 +7,7 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 `<meta name="clientId" content="[yourcontent]" />`
 
 ### property
-`<sportlink-wedstrijd clientId="[yourcontent]" teamCode="[yourcontent]"></sportlink-wedstrijd>`
+`<sportlink-wedstrijd clientId="[yourcontent]" teamCode="[yourcontent]" allgames="true"></sportlink-wedstrijd>`
 
 
 ### Properties
@@ -18,6 +18,7 @@ It is a webcomponent for displaying the next upcoming match(es) or previous matc
 | teamCode  | [your_id] |
 | single  | [some_value] |
 | type  | programma / uitslag |
+| allgames  | shows all programma or uitslagen |
 
 
 ### css vars

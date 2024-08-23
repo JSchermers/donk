@@ -104,6 +104,9 @@ class SportlinkWedstrijd extends LitElement {
   type?: string;
 
   @property()
+  allgames?: boolean;
+
+  @property()
   wedstrijdType?: string = "BOND";
 
   @property()
@@ -138,11 +141,13 @@ class SportlinkWedstrijd extends LitElement {
   private async getData(): Promise<any[]> {
     const url: URL = new URL(`${this.URL}${this.getType()}`);
     url.searchParams.append("client_id", this.clientId as unknown as string);
-    url.searchParams.append("teamcode", this.teamCode as unknown as string);
-    url.searchParams.append(
-      "wedstrijdtype",
-      this.wedstrijdType as unknown as string,
-    );
+    if (!this.allgames) {
+      url.searchParams.append("teamcode", this.teamCode as unknown as string);
+      url.searchParams.append(
+        "wedstrijdtype",
+        this.wedstrijdType as unknown as string,
+      );
+    }
     return await fetch(url).then((response) => {
       if (response.ok) {
         return response.json();
@@ -167,14 +172,22 @@ class SportlinkWedstrijd extends LitElement {
       this.error = true;
     } else {
       this.data = await this.getData();
-      this.data = this.single
-        ? this.data.slice(0, 1)
-        : this.data.length > 3
-          ? this.data.slice(0, 3)
-          : this.data;
+      this.data = this.modifiedArray(this.data);
       this.loading = false;
     }
   }
+
+  private modifiedArray = (data: any | undefined[]) => {
+    if (this.allgames) {
+      return data;
+    }
+    if (this.single) {
+      return data.slice(0, 1);
+    } else if (this.data.length > 3) {
+      return this.data.slice(0, 3);
+    }
+    return data;
+  };
 
   connectedCallback(): void {
     super.connectedCallback();

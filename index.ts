@@ -168,7 +168,9 @@ class SportlinkWedstrijd extends LitElement {
         ? this.teamCode
         : metaEls.namedItem("teamCode")?.content;
 
-    if (!this.clientId || !this.teamCode) {
+    if (!this.clientId) {
+      this.error = true;
+    } else if (!this.allgames && !this.teamCode) {
       this.error = true;
     } else {
       this.data = await this.getData();

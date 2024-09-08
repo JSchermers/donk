@@ -181,7 +181,7 @@ class SportlinkWedstrijd extends LitElement {
 
   private modifiedArray = (data: any | undefined[]) => {
     if (this.allgames) {
-      return data;
+      return data.reverse();
     }
     if (this.single) {
       return data.slice(0, 1);

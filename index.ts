@@ -180,8 +180,11 @@ class SportlinkWedstrijd extends LitElement {
   }
 
   private modifiedArray = (data: any | undefined[]) => {
-    if (this.allgames) {
+    if (this.type === "uitslag") {
       return data.reverse();
+    }
+    if (this.allgames) {
+      return data;
     }
     if (this.single) {
       return data.slice(0, 1);
